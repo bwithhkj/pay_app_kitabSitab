@@ -1,4 +1,4 @@
-package com.payapp.pay_app
+package com.book.minorproject
 
 import io.flutter.embedding.android.FlutterActivity
 

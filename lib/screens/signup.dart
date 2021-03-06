@@ -67,7 +67,7 @@ class _SignupScreenState extends State<SignupScreen> {
         phoneFieldFocusNode.addListener(() {
           setState(() {
             if (phoneFieldFocusNode.hasFocus) {
-              prefixCode = '+64';
+              prefixCode = '+977';
             } else {
               if (_phoneFieldController.text.length == 0) {
                 prefixCode = '';
@@ -97,7 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-             decoration: BoxDecoration(
+            decoration: BoxDecoration(
         gradient: new LinearGradient(
             colors: [
               const Color(0xFF5681DF),
@@ -116,15 +116,15 @@ class _SignupScreenState extends State<SignupScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
               TitleText(
-                  text: 'PAY IT',
+                  text: 'KITAB SITAB',
                   fontSize: 40,
                 ),
             SizedBox(
               height: 10,
             ),
                 Image.network(
-                  'https://cdn.pixabay.com/photo/2016/03/31/21/41/cash-1296584_1280.png',
-                  width: 140,
+                  'https://cdn.pixabay.com/photo/2017/01/31/00/09/book-2022464_960_720.png',
+                  height: 50,
                 ),
 
                   SizedBox(

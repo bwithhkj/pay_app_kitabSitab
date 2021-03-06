@@ -52,18 +52,19 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 SizedBox(height:10),
                 TitleText(
-                  text: 'PAY IT',
+                  text: 'KITAB SITAB',
                   fontSize: 40,
                 ),
             SizedBox(
               height: 20,
             ),
                 Image.network(
-                  'https://cdn.pixabay.com/photo/2016/03/31/21/41/cash-1296584_1280.png',
-                  width: 140,
+                  'https://cdn.pixabay.com/photo/2013/07/13/12/43/girl-160172_960_720.png',
+                  height: 150,
+
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 10,
+                  height: MediaQuery.of(context).size.height / 20,
                 ),
                 Container(
                   child: TextField(

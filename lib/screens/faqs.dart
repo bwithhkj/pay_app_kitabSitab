@@ -97,15 +97,32 @@ class _FaqsScreenState extends State<FaqsScreen> {
                               dense: true,
                               leading: Icon(Icons.arrow_forward, color: Colors.white,),
                               title: TitleText(
-                                text:'How to topup user balance?',
+                                text:'How to sell a book?',
                               ),
                               subtitle: TitleText(
-                                text: 'Just tap to Top up option in dashboard. Then, fill the card details and amount to topup balance.',
+                                text: 'Just tap to sell book option in dashboard. Then, fill the  details and amount to list your book.',
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
                           ),
                           Divider(color: Colors.white,),
+                          Container(
+                            margin:
+                                EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                            child: ListTile(
+                              dense: true,
+                              leading: Icon(Icons.arrow_forward, color: Colors.white,),
+                              title: TitleText(
+                                text:'How to buy a book?',
+                              ),
+                              subtitle: TitleText(
+                                text: 'Tap to the buy book option. Then, you\'ll able to see the books listed. Just contact the seller, meet and buy',
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                          Divider(color: Colors.white,),
+
                           Container(
                             margin:
                                 EdgeInsets.symmetric(horizontal: 16, vertical: 4),

@@ -4,35 +4,36 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_app/helpers/FirestoreHelper.dart';
-import 'package:pay_app/models/Book.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:pay_app/models/PDF.dart';
 import 'package:pay_app/models/User.dart';
 import 'package:pay_app/screens/dashboard.dart';
 import 'package:pay_app/widgets/titleText.dart';
 
-class PaymentScreen extends StatefulWidget {
+class UploadPDF extends StatefulWidget {
   User user;
-  PaymentScreen(this.user);
+  UploadPDF(this.user);
 
   @override
-  _PaymentScreenState createState() => _PaymentScreenState();
+  _UploadPDFState createState() => _UploadPDFState();
 }
 
-class _PaymentScreenState extends State<PaymentScreen> {
+class _UploadPDFState extends State<UploadPDF> {
   User _registeringUser;
-  Card card = Card();
-  Book book = Book.empty();
+  
+  PDF pdf = PDF.empty();
   String imagePath;
   String downloadURL;
+  
+  String fileName;
   final List<String> categories = ['COURSE', 'STORY', 'NOVEL'];
-
   String tempValue = '0';
 
   // Image Picker
   // List<File> _images = [];
-  File _image; // Used only if you need a single picture
+  File _file; // Used only if you need a single picture
   DocumentReference sightingRef =
-      Firestore.instance.collection('booksImage').document();
-
+      Firestore.instance.collection('pdfs').document();
   @override
   void initState() {
     super.initState();
@@ -45,9 +46,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   TextEditingController _bookTitleFieldController;
   TextEditingController _bookCategoryFieldController;
 
-
-  TextEditingController _bookAmountFieldController;
-
   // phone number field focus node
   // book title, ani price, ani category, aru chai user ko bata tanna milne.(user email, phone no. location)
   @override
@@ -55,7 +53,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return Scaffold(
       appBar: AppBar(
         title: TitleText(
-          text: 'Upload Book',
+          text: 'Upload PDF',
           fontSize: 20,
         ),
       ),
@@ -81,7 +79,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TitleText(
-                    text: 'Upload book image',
+                    text: 'Upload PDF HERE',
                     fontSize: 22,
                   ),
                 ],
@@ -90,7 +88,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 height: 10,
               ),
               RaisedButton(
-                onPressed: () {getImage(true);},
+                onPressed: () { getPdfAndUpload();},
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: imagePath == null
@@ -114,12 +112,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         keyboardType: TextInputType.text,
                         autofocus: false,
                         onChanged: (String title){
-                          book.name = title;
+                          pdf.name = title;
                           print('amount is $title');
                         },
                         decoration: InputDecoration(
                           hintStyle: TextStyle(color: Colors.black38),
-                          hintText: 'Book title',
+                          hintText: 'PDF title',
                           icon: Icon(Icons.book, color: Colors.black87),
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -140,7 +138,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               keyboardType: TextInputType.text,
                               autofocus: false,
                               onChanged: (String cat) {
-                                book.category = cat;
+                                pdf.category = cat;
                                 print('cat is $cat');
                               },
                               decoration: InputDecoration(
@@ -157,29 +155,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                      ),
-                      child: TextFormField(
-                        controller: _bookAmountFieldController,
-                        keyboardType: TextInputType.number,
-                        autofocus: false,
-                        onChanged: (String value) {
-                          tempValue = value;
-                          book.amount = int.parse(tempValue);
-                          print('amount is $tempValue');
-                        },
-                        decoration: InputDecoration(
-                          hintStyle: TextStyle(color: Colors.black38),
-                          hintText: 'Amount',
-                          icon: Icon(Icons.attach_money, color: Colors.black87),
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -196,18 +171,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           int.parse(tempValue);*/
                     //  print(' getImage function runned successfully');
                     });
-
-                    book.user = _registeringUser.name;
-                   // book.name = _bookTitleFieldController.text;
-                   // book.category = _bookCategoryFieldController.text;
-                   // book.amount = int.parse(_bookAmountFieldController.text) ;
-                    book.location = _registeringUser.address;
-                    book.contact = _registeringUser.phone;
-                    book.uploadDate = DateTime.now();
-                   saveImages(_image, sightingRef);
-
+                    pdf.user = _registeringUser.name;
+                    pdf.uploadDate = DateTime.now();
+                    savePdf(_file.readAsBytesSync(), fileName);
                     print('Redirecting to home');
-
                   },
                   padding: EdgeInsets.all(2),
                   color: Colors.blue.withOpacity(0.6),
@@ -226,111 +193,37 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Future getImage(bool gallery) async {
-    ImagePicker picker = ImagePicker();
-    PickedFile pickedFile;
-    // Let user select photo from gallery
-    if (gallery) {
-      pickedFile = await picker.getImage(
-        source: ImageSource.gallery,
-      );
-      print('Images picked');
-      setState(() {});
-      ({});
-    }
-    // Otherwise open camera to get new photo
-    else {
-      pickedFile = await picker.getImage(
-        source: ImageSource.camera,
-      );
-    }
+  Future getPdfAndUpload() async{
 
-    setState(() {
-      if (pickedFile != null) {
-        imagePath = pickedFile.path;
-        _image = File(pickedFile.path);
-        print('added to path');
-        _image = File(pickedFile.path); // Use if you only need a single picture
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
+ FilePickerResult fileresult = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+ if(fileresult != null) {
+ _file = File(fileresult.files.first.path);
+}
+fileName = 'PFD' + DateTime.now().toString();
+  print(fileName);
+  print('${_file.readAsBytesSync()}');
 
-  String validatorPhoneField(String value) {
-    if (value != null && value.length > 0) {
-      if (value.length != 16) {
-        return 'Enter 16 digits number';
-      } else {
-        return null;
-      }
-    } else {
-      return 'CreditCard number couldn\'t be empty';
-    }
-  }
+}
 
-  Future<String> saveImages(File _image, DocumentReference ref) async {
-    String imageURL;
-   uploadFile(_image).then((img) {
-      imageURL =  img;
-    });
-    // waitonesecond();
-   // });
+Future savePdf(List<int> asset, String name) async {
+ setState(() {
+    CircularProgressIndicator();
+ });
+ 
+  StorageReference reference = FirebaseStorage.instance.ref().child(name);
+  StorageUploadTask uploadTask = reference.putData(asset);
+  String url = await (await uploadTask.onComplete).ref.getDownloadURL();
+  print(url);
+  pdf.pdfURL = url;
 
-    debugPrint(' This is your image url $imageURL');
-    //ref.update({"images": FieldValue.arrayUnion([imageURL])});
-   return imageURL;
-  }
-
-  Future<String> uploadFile(File _image) async {
-    String returnUrl = '';
-    FirebaseStorage storage = FirebaseStorage.instance;
-    StorageReference ref =
-        storage.ref().child("bookImage " + DateTime.now().toString());
-    StorageUploadTask uploadTask = ref.putFile(_image);
-    if (uploadTask.isInProgress == true) {}
-    if (await uploadTask.onComplete != null) {
-      ref.getDownloadURL().then((fileUrl) async {
-        returnUrl = fileUrl;
-        print(' ..........$returnUrl');
-        FirestoreHelper.createNewBook(_registeringUser, book, returnUrl, () {
+  FirestoreHelper.createNewPDF(_registeringUser, pdf, () {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) =>
                       DashboardScreen(_registeringUser)));
         });
-      });
-      return returnUrl;
-    }
-    //var snapshot = await uploadTask.onComplete;
-    //String returnURL = snapshot.ref.getDownloadURL().toString();
-    // print('File Uploaded $returnURL');
-    //String returnURL;
-    //returnURL =  await ref.getDownloadURL().toString();
-    // print('Image url $returnURL');
-
-  }
-
-  void waitforasecond() {
-    Future.delayed(const Duration(milliseconds: 500), () {
-// Here you can write your code
-      setState(() { // Here you can write your code for open new view
-      });
-    });
-  }
-
-  // validate the fields
-/*  bool validate() {
-    bool a = true;
-    if (_cardNumberFieldController.text.length < 16) {
-      a = false;
-    }
-
-    if (_cardCVVFieldController.text.length < 4) {
-      a = false;
-    }
-
-    return a;
-  }*/
+  return  url;
 }
+
+  }

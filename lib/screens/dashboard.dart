@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_app/models/User.dart';
+import 'package:pay_app/screens/bookScreen.dart';
 import 'package:pay_app/screens/editaccount.dart';
 import 'package:pay_app/screens/faqs.dart';
 import 'package:pay_app/screens/payment.dart';
+import 'package:pay_app/screens/uploadpdf.dart';
 import 'package:pay_app/widgets/titleText.dart';
 
 import 'login.dart';
@@ -26,7 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Center(
             child: TitleText(
-          text: 'PAY IT      ',
+          text: 'KITAB SITAB      ',
           fontSize: 30,
           color: Colors.blue,
         )),
@@ -78,23 +80,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 color: Colors.white,
               ),
               SizedBox(height: 28.0),
-              Container(
-                height: 60,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  onPressed: () {},
-                  padding: EdgeInsets.all(2),
-                  color: Colors.white.withOpacity(0.6),
-                  child: TitleText(
-                    text: '\$ ${widget.user.balance.toString()}',
-                    fontSize: 36,
-                    color: Colors.white,
-                  ),
-                ),
-                width: MediaQuery.of(context).size.width / 2.2,
-              ),
+              // Container(
+              //   height: 60,
+              //   child: RaisedButton(
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(4),
+              //     ),
+              //     onPressed: () {},
+              //     padding: EdgeInsets.all(2),
+              //     color: Colors.white.withOpacity(0.6),
+              //     child: TitleText(
+              //       text: '\$ ${widget.user.balance.toString()}',
+              //       fontSize: 36,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              //   width: MediaQuery.of(context).size.width / 2.2,
+              // ),
               SizedBox(height: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -103,7 +105,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      FeatureWidget(' Top Up ', Icons.touch_app, () {
+                      FeatureWidget('UPLOAD PDF', Icons.touch_app, () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -118,7 +120,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 builder: (cxt) =>
                                     EditProfileScreen(widget.user)));
                       }),
-                      FeatureWidget('Requests ', Icons.receipt, () {}),
+                      FeatureWidget('Buy Book ', Icons.receipt, () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (cxt) => BookScreen(widget.user)));
+                      }),
                     ],
                   ),
                   SizedBox(
@@ -128,19 +135,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      FeatureWidget('FAQs', Icons.remove_from_queue, () {
+                      FeatureWidget('Upload Book', Icons.file_upload, () {
                     Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (cxt) => UploadPDF(widget.user)));
+                      }),
+                      FeatureWidget(
+                          'Read Book', Icons.library_books, () {
+                          _deleteAccount();
+                          }),
+                      FeatureWidget('Logout', Icons.all_out, _logout),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                      FeatureWidget('FAQs', Icons.remove_from_queue, () {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (cxt) => FaqsScreen(widget.user)));
                       }),
-                      FeatureWidget(
-                          'Delete User', Icons.supervisor_account, () {
-                          _deleteAccount();
-                          }),
-                      FeatureWidget('Delete', Icons.all_out, _logout),
                     ],
-                  ),
+                  )
                 ],
               ),
             ],

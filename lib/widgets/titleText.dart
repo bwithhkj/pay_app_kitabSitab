@@ -23,7 +23,7 @@ class TitleText extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.muli(fontSize: fontSize, fontWeight: fontWeight, color: color),
-      textAlign: align != null ? align : TextAlign.start,
+      textAlign: align != null ? align : TextAlign.left,
     );
   }
 }

@@ -35,6 +35,10 @@ dependencies:
   cloud_firestore: ^0.13.7
   google_fonts: ^0.3.9
   progress_dialog: ^1.2.4
+  change_app_package_name: ^0.1.2
+  image_picker: ^0.6.7+11
+  file_picker:
+  firebase_storage:
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +59,7 @@ flutter:
   assets:
     - assets/
     - assets/icon.png
+    - assets/tap_to_upload.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
