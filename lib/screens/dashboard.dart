@@ -5,6 +5,7 @@ import 'package:pay_app/screens/bookScreen.dart';
 import 'package:pay_app/screens/editaccount.dart';
 import 'package:pay_app/screens/faqs.dart';
 import 'package:pay_app/screens/payment.dart';
+import 'package:pay_app/screens/pdfscreen.dart';
 import 'package:pay_app/screens/uploadpdf.dart';
 import 'package:pay_app/widgets/titleText.dart';
 
@@ -105,7 +106,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      FeatureWidget('UPLOAD PDF', Icons.touch_app, () {
+                      FeatureWidget('SELL BOOK', Icons.touch_app, () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -135,7 +136,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      FeatureWidget('Upload Book', Icons.file_upload, () {
+                      FeatureWidget('Upload PDF', Icons.file_upload, () {
                     Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -143,7 +144,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       }),
                       FeatureWidget(
                           'Read Book', Icons.library_books, () {
-                          _deleteAccount();
+                         // _deleteAccount();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (cxt) => PDFScreen(widget.user)));
                           }),
                       FeatureWidget('Logout', Icons.all_out, _logout),
                     ],

@@ -21,7 +21,7 @@ class UploadPDF extends StatefulWidget {
 class _UploadPDFState extends State<UploadPDF> {
   User _registeringUser;
   
-  PDF pdf = PDF.empty();
+  PDFs pdf = PDFs.empty();
   String imagePath;
   String downloadURL;
   

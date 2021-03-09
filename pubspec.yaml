@@ -37,6 +37,7 @@ dependencies:
   progress_dialog: ^1.2.4
   change_app_package_name: ^0.1.2
   image_picker: ^0.6.7+11
+  flutter_pdfview: ^1.0.4
   file_picker:
   firebase_storage:
 

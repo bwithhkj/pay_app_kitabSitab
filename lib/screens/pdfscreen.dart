@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_app/models/User.dart';
+import 'package:pay_app/screens/pdfReader.dart';
 import 'package:pay_app/widgets/titleText.dart';
 
 class PDFScreen extends StatefulWidget {
@@ -53,7 +54,7 @@ class _PDFScreenState extends State<PDFScreen> {
         width: MediaQuery.of(context).size.width,
 
         child: StreamBuilder(
-          stream: Firestore.instance.collection('Books').snapshots(),
+          stream: Firestore.instance.collection('Pdfs').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -68,10 +69,6 @@ class _PDFScreenState extends State<PDFScreen> {
                     document['Location'],
                     document['user'],
                         () {
-               /*   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (cxt) => PaymentScreen(widget.user)));*/
                 });
               }).toList(),
             );
@@ -84,12 +81,18 @@ class _PDFScreenState extends State<PDFScreen> {
   Widget FeatureWidget(
 
       String title,
-      String imgURL,
+      String pdfURL,
       String location,
       String owner,
       Function onSelected,
       ) {
     return RaisedButton(
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (cxt) => PDFreader(title, pdfURL)));
+      },
       child: Container(
         margin: EdgeInsets.all(0),
         decoration: BoxDecoration(
@@ -116,7 +119,7 @@ class _PDFScreenState extends State<PDFScreen> {
               color: Colors.white,
             ),
             TitleText(
-              text: 'Seller: $owner',
+              text: 'Uploader: $owner',
               fontSize: MediaQuery.of(context).size.height * 0.02,
               color: Colors.white,
             ),
@@ -128,7 +131,7 @@ class _PDFScreenState extends State<PDFScreen> {
       ),
       padding: EdgeInsets.all(12),
       color: Colors.white.withOpacity(0.2),
-      onPressed: onSelected,
+      //onPressed: onSelected,
     );
   }
 }

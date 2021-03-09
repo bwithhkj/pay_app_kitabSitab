@@ -32,6 +32,7 @@ class EmailPassAuthentication {
     return authResult;
   }
 
+
   static Future linkWithEmalPass(User user) async {
     AuthCredential credential = EmailAuthProvider.getCredential(email: user.email, password: user.password);
     FirebaseAuth auth = FirebaseAuth.instance;

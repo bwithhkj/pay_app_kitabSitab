@@ -1,5 +1,5 @@
 
-class PDF {
+class PDFs {
 
   String pdfURL;
   String name;
@@ -7,7 +7,7 @@ class PDF {
   String user;
   String category;
 
-  PDF(
+  PDFs(
       this.pdfURL,
       this.name,
       this.uploadDate,
@@ -15,7 +15,7 @@ class PDF {
       this.category,
       );
 
-  PDF.empty();
+  PDFs.empty();
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> book = Map();
@@ -27,7 +27,7 @@ class PDF {
     return book;
   }
 
-  PDF.fromMap(Map<String, dynamic> map) {
+  PDFs.fromMap(Map<String, dynamic> map) {
     this.name = map['name'];
     this.pdfURL = map['pdfURL'];
     this.name = map['name'];

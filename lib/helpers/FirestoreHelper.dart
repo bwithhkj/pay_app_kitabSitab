@@ -56,7 +56,7 @@ class FirestoreHelper {
     //   Common.signedInUser = user;
   }
 
-  static void createNewPDF(User user,  PDF book, Function onCompleteCallback) async {
+  static void createNewPDF(User user,  PDFs book, Function onCompleteCallback) async {
     Firestore firestore = Firestore.instance;
     CollectionReference PDFS_COLLECTION = firestore.collection(KEY_PDFS);
 
