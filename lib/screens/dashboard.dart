@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_app/models/User.dart';
-import 'package:pay_app/screens/bookScreen.dart';
+import 'package:pay_app/screens/buyScreen.dart';
 import 'package:pay_app/screens/editaccount.dart';
 import 'package:pay_app/screens/faqs.dart';
-import 'package:pay_app/screens/payment.dart';
+import 'package:pay_app/screens/sellBook.dart';
 import 'package:pay_app/screens/pdfscreen.dart';
 import 'package:pay_app/screens/uploadpdf.dart';
 import 'package:pay_app/widgets/titleText.dart';
@@ -12,8 +12,8 @@ import 'package:pay_app/widgets/titleText.dart';
 import 'login.dart';
 
 class DashboardScreen extends StatefulWidget {
-  User user;
 
+  User user;
   DashboardScreen(this.user);
 
   @override
@@ -80,7 +80,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 fontSize: 30,
                 color: Colors.white,
               ),
-              SizedBox(height: 28.0),
+              SizedBox(height: 20.0),
               // Container(
               //   height: 60,
               //   child: RaisedButton(

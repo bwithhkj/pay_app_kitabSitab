@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:pay_app/models/Book.dart';
 import 'package:pay_app/models/User.dart';
 import 'package:pay_app/widgets/titleText.dart';
 

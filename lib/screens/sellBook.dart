@@ -77,18 +77,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           child: Column(
             children: [
               SizedBox(height: 30),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TitleText(
-                    text: 'Upload book image',
-                    fontSize: 22,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
+
               RaisedButton(
                 onPressed: () {getImage(true);},
                 child: Padding(
@@ -303,34 +292,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       });
       return returnUrl;
     }
-    //var snapshot = await uploadTask.onComplete;
-    //String returnURL = snapshot.ref.getDownloadURL().toString();
-    // print('File Uploaded $returnURL');
-    //String returnURL;
-    //returnURL =  await ref.getDownloadURL().toString();
-    // print('Image url $returnURL');
-
   }
 
-  void waitforasecond() {
-    Future.delayed(const Duration(milliseconds: 500), () {
-// Here you can write your code
-      setState(() { // Here you can write your code for open new view
-      });
-    });
-  }
-
-  // validate the fields
-/*  bool validate() {
-    bool a = true;
-    if (_cardNumberFieldController.text.length < 16) {
-      a = false;
-    }
-
-    if (_cardCVVFieldController.text.length < 4) {
-      a = false;
-    }
-
-    return a;
-  }*/
 }

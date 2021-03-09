@@ -68,7 +68,7 @@ class _PDFreaderState extends State<PDFreader> {
           autoSpacing: true,
           enableSwipe: true,
           pageSnap: true,
-          swipeHorizontal: true,
+          swipeHorizontal: false,
           nightMode: false,
           onError: (e) {
             //Show some error message or UI
