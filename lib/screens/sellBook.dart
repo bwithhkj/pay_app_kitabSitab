@@ -23,7 +23,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Book book = Book.empty();
   String imagePath;
   String downloadURL;
-  final List<String> categories = ['COURSE', 'STORY', 'NOVEL'];
+  String _defaultvalue;
+  final List<String> categories = ['Primary', 'Secondary', 'Bachelors'];
 
   String tempValue = '0';
 
@@ -123,26 +124,32 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               borderRadius: BorderRadius.circular(8),
                               color: Colors.white,
                             ),
-                            child: TextFormField(
-                              controller: _bookCategoryFieldController,
-                              keyboardType: TextInputType.text,
-                              autofocus: false,
-                              onChanged: (String cat) {
-                                book.category = cat;
-                                print('cat is $cat');
-                              },
-                              decoration: InputDecoration(
-                                hintStyle: TextStyle(color: Colors.black38),
-                                hintText: 'Category',
-                                icon: Icon(Icons.calendar_today,
-                                    color: Colors.black87),
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: DropdownButton(
+                                hint: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: Text(' Please select the categories          ', style: TextStyle( fontWeight: FontWeight.bold, color: Colors.grey)),
+                                ), // Not necessary for Option 1
+                                value: _defaultvalue,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    book.category = newValue;
+                                    _defaultvalue = newValue;
+                                  });
+                                },
+                                items: categories.map((location) {
+                                  return DropdownMenuItem(
+                                    child: new Text(location),
+                                    value: location,
+                                  );
+                                }).toList(),
                               ),
                             ),
                           ),
                         ),
                         //
+
 
                       ],
                     ),
@@ -186,7 +193,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           int.parse(tempValue);*/
                     //  print(' getImage function runned successfully');
                     });
-
                     book.user = _registeringUser.name;
                    // book.name = _bookTitleFieldController.text;
                    // book.category = _bookCategoryFieldController.text;
@@ -195,9 +201,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     book.contact = _registeringUser.phone;
                     book.uploadDate = DateTime.now();
                    saveImages(_image, sightingRef);
-
                     print('Redirecting to home');
-
                   },
                   padding: EdgeInsets.all(2),
                   color: Colors.blue.withOpacity(0.6),

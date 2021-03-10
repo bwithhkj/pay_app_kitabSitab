@@ -24,9 +24,10 @@ class _UploadPDFState extends State<UploadPDF> {
   PDFs pdf = PDFs.empty();
   String imagePath;
   String downloadURL;
+  String _defaultvalue;
   
   String fileName;
-  final List<String> categories = ['COURSE', 'STORY', 'NOVEL'];
+  final List<String> categories = ['COURSE', 'STORY', 'NOVEL','BIOGRAPHY'];
   String tempValue = '0';
 
   // Image Picker
@@ -134,21 +135,26 @@ class _UploadPDFState extends State<UploadPDF> {
                               borderRadius: BorderRadius.circular(8),
                               color: Colors.white,
                             ),
-                            child: TextFormField(
-                              controller: _bookCategoryFieldController,
-                              keyboardType: TextInputType.text,
-                              autofocus: false,
-                              onChanged: (String cat) {
-                                pdf.category = cat;
-                                print('cat is $cat');
-                              },
-                              decoration: InputDecoration(
-                                hintStyle: TextStyle(color: Colors.black38),
-                                hintText: 'Category',
-                                icon: Icon(Icons.calendar_today,
-                                    color: Colors.black87),
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: DropdownButton(
+                                hint: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: Text(' Please select the categories      ', style: TextStyle( fontWeight: FontWeight.bold, color: Colors.grey)),
+                                ), // Not necessary for Option 1
+                                value: _defaultvalue,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    pdf.category = newValue;
+                                    _defaultvalue = newValue;
+                                  });
+                                },
+                                items: categories.map((location) {
+                                  return DropdownMenuItem(
+                                    child: new Text(location),
+                                    value: location,
+                                  );
+                                }).toList(),
                               ),
                             ),
                           ),

@@ -24,6 +24,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
 
   List<String> categoryLists = ['Primary', 'Secondary', 'Bachelors'];
+  List<String> categoryPDF = ['COURSE', 'STORY', 'NOVEL','BIOGRAPHY'];
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +151,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (cxt) => PDFcategory(widget.user, categoryLists, true)));
+                                builder: (cxt) => PDFcategory(widget.user, categoryPDF, true)));
                           }),
                       FeatureWidget('Logout', Icons.all_out, _logout),
                     ],
