@@ -115,7 +115,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
               TitleText(
-                  text: 'KITAB SITAB',
+                  text: '   ONLINE BOOK\n     BUY & SELL',
                   fontSize: 40,
                 ),
             SizedBox(
