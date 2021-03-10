@@ -186,7 +186,7 @@ class _UploadPDFState extends State<UploadPDF> {
                   padding: EdgeInsets.all(2),
                   color: Colors.blue.withOpacity(0.6),
                   child: TitleText(
-                    text: 'UPLOAD BOOK NOW',
+                    text: 'UPLOAD PDF NOW',
                     fontSize: 30,
                     color: Colors.white,
                   ),

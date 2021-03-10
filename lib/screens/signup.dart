@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pay_app/authenticators/AccountLinking.dart';
 import 'package:pay_app/authenticators/EmailPassAuthentication.dart';
 import 'package:pay_app/helpers/FirestoreHelper.dart';
 import 'package:pay_app/models/User.dart';
