@@ -51,6 +51,7 @@ class _UploadPDFState extends State<UploadPDF> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFDFCFFF),
       appBar: AppBar(
         title: TitleText(
           text: 'Upload PDF',
@@ -95,7 +96,7 @@ class _UploadPDFState extends State<UploadPDF> {
                       ? Image.asset(
                           'assets/tap_to_upload.jpg',
                         )
-                      : Image.asset(imagePath),
+                      : TitleText(text: 'PDF SELECTED\n NOW,\N FILL IN THE \N DETAILS ', color: Colors.white,),
                 ),
               ),
               Padding(

@@ -44,8 +44,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   // datetime => age controller
   TextEditingController _bookTitleFieldController;
   TextEditingController _bookCategoryFieldController;
-
-
   TextEditingController _bookAmountFieldController;
 
   // phone number field focus node
@@ -53,6 +51,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFDFCFFF),
       appBar: AppBar(
         title: TitleText(
           text: 'Upload Book',
@@ -143,6 +142,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ),
                           ),
                         ),
+                        //
+
                       ],
                     ),
                     SizedBox(height: 20),

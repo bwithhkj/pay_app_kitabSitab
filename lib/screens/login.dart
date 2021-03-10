@@ -51,9 +51,14 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height:10),
-                TitleText(
-                  text: 'KITAB SITAB',
-                  fontSize: 40,
+                Row(
+                  children: [
+                    SizedBox(width: 10,),
+                    TitleText(
+                      text: '   ONLINE BOOK\n     BUY & SELL',
+                      fontSize: 40,
+                    ),
+                  ],
                 ),
             SizedBox(
               height: 20,

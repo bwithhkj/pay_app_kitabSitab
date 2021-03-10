@@ -4,6 +4,7 @@ import 'package:pay_app/models/User.dart';
 import 'package:pay_app/screens/buyScreen.dart';
 import 'package:pay_app/screens/editaccount.dart';
 import 'package:pay_app/screens/faqs.dart';
+import 'package:pay_app/screens/pdfCategory.dart';
 import 'package:pay_app/screens/sellBook.dart';
 import 'package:pay_app/screens/pdfscreen.dart';
 import 'package:pay_app/screens/uploadpdf.dart';
@@ -22,6 +23,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
 
+  List<String> categoryLists = ['Primary', 'Secondary', 'Bachelors'];
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Center(
             child: TitleText(
-          text: 'KITAB SITAB      ',
+          text: '      BUY SELL READ    ',
           fontSize: 30,
           color: Colors.blue,
         )),
@@ -125,7 +127,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (cxt) => BookScreen(widget.user)));
+                                builder: (cxt) => PDFcategory(widget.user, categoryLists, false)));
                       }),
                     ],
                   ),
@@ -148,7 +150,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (cxt) => PDFScreen(widget.user)));
+                                builder: (cxt) => PDFcategory(widget.user, categoryLists, true)));
                           }),
                       FeatureWidget('Logout', Icons.all_out, _logout),
                     ],
@@ -225,7 +227,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: Text('Logout'),
         content: Padding(
           padding: EdgeInsets.all(12),
-          child: Text('Are you sure you want to signout from Pay it ?'),
+          child: Text('Are you sure you want to signout from Buy Sell Read app ?'),
         ),
         actions: [
           FlatButton(
@@ -252,7 +254,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: Text('Delete Account'),
         content: Padding(
           padding: EdgeInsets.all(12),
-          child: Text('Are you sure you want to delete your account from Pay it ?'),
+          child: Text('Are you sure you want to delete your account from Buy sell ?'),
         ),
         actions: [
           FlatButton(

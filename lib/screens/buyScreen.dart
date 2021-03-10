@@ -5,7 +5,8 @@ import 'package:pay_app/widgets/titleText.dart';
 
 class BookScreen extends StatefulWidget {
   User user;
-  BookScreen(this.user);
+  String category;
+  BookScreen(this.user, this.category);
   @override
   _BookScreenState createState() => _BookScreenState();
 }
@@ -37,62 +38,94 @@ class _BookScreenState extends State<BookScreen> {
         ),
       ),
       body: SafeArea(
-          child: Container(
-        decoration: BoxDecoration(
-          gradient: new LinearGradient(
-              colors: [
-                const Color(0xFF5681DF),
-                const Color(0xFFDFCFFF),
-              ],
-              begin: const FractionalOffset(0.6, 0.0),
-              end: const FractionalOffset(1.0, 1.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [
+                  const Color(0xFF5681DF),
+                  const Color(0xFFDFCFFF),
+                ],
+                begin: const FractionalOffset(0.6, 0.0),
+                end: const FractionalOffset(1.0, 1.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              Flexible(
+                child: StreamBuilder(
+                  stream: Firestore.instance.collection('Books').snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } // if(document['user'] != widget.user.name && document['Location'] == widget.user.address && document['amount'] < 255 ) {
+                    return ListView(
+                      children: snapshot.data.documents.map<Widget>((document) {
+                        if( document['Location'] == widget.user.address && document['user'] != widget.user.name && document['category']== widget.category) {
+                        return FeatureWidget(
+                            document['name'],
+                            document['bookURL'],
+                            document['Location'],
+                            document['user'],
+                            document['amount'],
+                            document['user'],
+                            () {});
+                        } else {
+                          return SizedBox(height: 0,);
+                        }
+                      }).toList(),
+                    );
+                  },
+                ),
+              ),
+             /* Flexible(
+                child: StreamBuilder(
+                  stream: Firestore.instance.collection('Books').snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } // if(document['user'] != widget.user.name && document['Location'] == widget.user.address && document['amount'] < 255 ) {
+                    return ListView(
+                      children: snapshot.data.documents.map<Widget>((document) {
+                        if( document['Location'] != widget.user.address && document['user'] != widget.user.name) {
+                          return FeatureWidget(
+                              document['name'],
+                              document['bookURL'],
+                              document['Location'],
+                              document['user'],
+                              document['amount'],
+                              document['user'],
+                                  () {});
+                        } else {
+                          return SizedBox(height: 0,);
+                        }
+                      }).toList(),
+                    );
+                  },
+                ),
+              ),*/
+            ],
+          ),
         ),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-
-        child: StreamBuilder(
-          stream: Firestore.instance.collection('Books').snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return ListView(
-              children: snapshot.data.documents.map<Widget>((document) {
-                return FeatureWidget(
-                    document['name'],
-                    document['bookURL'],
-                    document['Location'],
-                    document['user'],
-                    document['amount'],
-                    document['user'],
-                        () {
-               /*   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (cxt) => PaymentScreen(widget.user)));*/
-                });
-              }).toList(),
-            );
-          },
-        ),
-      )),
+      ),
     );
   }
 
   Widget FeatureWidget(
-
-      String title,
-      String imgURL,
-      String location,
-      String owner,
-      int price,
-      String contact,
-      Function onSelected,
-      ) {
+    String title,
+    String imgURL,
+    String location,
+    String owner,
+    int price,
+    String contact,
+    Function onSelected,
+  ) {
     return RaisedButton(
       child: Container(
         margin: EdgeInsets.all(0),
@@ -107,7 +140,10 @@ class _BookScreenState extends State<BookScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 1),
-              child: Image.network(imgURL, height: 200, ),
+              child: Image.network(
+                imgURL,
+                height: 200,
+              ),
             ),
             TitleText(
               text: 'Title: $title',

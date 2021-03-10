@@ -155,21 +155,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                           ),
                           Divider(color: Colors.white,),
-                          Container(
-                            margin:
-                                EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                            child: ListTile(
-                              dense: true,
-                              onTap: _showSurburbDialog,
-                              leading: Icon(Icons.location_on, color: Colors.white,),
-                              title: TitleText(text:'Surburb'),
-                              subtitle: TitleText(
-                                text:user.suburb ?? 'dd',
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                          Divider(color: Colors.white,),
                           // Divider(
                           //     thickness: 4,
                           //     color: Colors.black12.withOpacity(0.1)),
@@ -217,37 +202,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     showDialog(context: context, child: dialog);
   }
 
-    void _showSurburbDialog() {
-    TextEditingController c = TextEditingController();
-    c.text = user.suburb;
-    var dialog = AlertDialog(
-      title: Text('Update your address'),
-      content: TextField(
-        decoration: new InputDecoration(hintText: "Update Info"),
-        controller: c,
-      ),
-      actions: [
-        new FlatButton(
-          child: new Text("Close"),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        new FlatButton(
-          child: new Text("Update"),
-          onPressed: () {
-            setState(() {
-              user.suburb = c.text;
-            });
-            FirestoreHelper.updateName(user, () {
-              Navigator.pop(context);
-            });
-          },
-        ),
-      ],
-    );
-    showDialog(context: context, child: dialog);
-  }
+
 
   void _showNameDialog() {
     TextEditingController c = TextEditingController();

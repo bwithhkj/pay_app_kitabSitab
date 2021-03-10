@@ -26,8 +26,8 @@ void _setBusy(bool busy) {
 
   @override
   void initState() {
-    super.initState();
-        proceed();
+    super.initState(); //internally executed
+        proceed(); // override some ectra functions./
 
   }
 
@@ -35,6 +35,7 @@ void _setBusy(bool busy) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF363636), //#363636
       body: Container(
         child: Column(
           children: [
@@ -49,7 +50,7 @@ void _setBusy(bool busy) {
                   child: Container(
                     width: 200.0,
                     height: 200.0,
-                    child: Image.asset('assets/images/khelbuddy-logo.png'),
+                    child: Image.asset('assets/logo.png'),
                   ),
                 ),
               ),

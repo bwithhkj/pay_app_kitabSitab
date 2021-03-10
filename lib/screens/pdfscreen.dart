@@ -6,7 +6,8 @@ import 'package:pay_app/widgets/titleText.dart';
 
 class PDFScreen extends StatefulWidget {
   User user;
-  PDFScreen(this.user);
+  String category;
+  PDFScreen(this.user, this.category);
   @override
   _PDFScreenState createState() => _PDFScreenState();
 }
@@ -63,13 +64,16 @@ class _PDFScreenState extends State<PDFScreen> {
             }
             return ListView(
               children: snapshot.data.documents.map<Widget>((document) {
-                return FeatureWidget(
-                    document['name'],
-                    document['pdfURL'],
-                    document['Location'],
-                    document['user'],
-                        () {
-                });
+                if(document['category'] == widget.category) {
+                  return FeatureWidget(
+                      document['name'],
+                      document['pdfURL'],
+                      document['user'],
+                          document['category'],
+                          () {});
+                } else {
+                  return SizedBox(height: 0,);
+                }
               }).toList(),
             );
           },
@@ -79,11 +83,10 @@ class _PDFScreenState extends State<PDFScreen> {
   }
 
   Widget FeatureWidget(
-
       String title,
       String pdfURL,
-      String location,
       String owner,
+      String category,
       Function onSelected,
       ) {
     return RaisedButton(
@@ -105,7 +108,7 @@ class _PDFScreenState extends State<PDFScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 1),
+              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical:5),
               child: TitleText(text: 'TAP TO READ'),
             ),
             TitleText(
@@ -114,15 +117,16 @@ class _PDFScreenState extends State<PDFScreen> {
               color: Colors.white,
             ),
             TitleText(
-              text: 'Location: $location',
-              fontSize: MediaQuery.of(context).size.height * 0.02,
-              color: Colors.white,
-            ),
-            TitleText(
               text: 'Uploader: $owner',
               fontSize: MediaQuery.of(context).size.height * 0.02,
               color: Colors.white,
             ),
+            TitleText(
+              text: 'Category: $category',
+              fontSize: MediaQuery.of(context).size.height * 0.02,
+              color: Colors.white,
+            ),
+            Divider(height: 10,),
           ],
         ),
       ),

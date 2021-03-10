@@ -132,7 +132,7 @@ class _PDFreaderState extends State<PDFreader> {
         //Replace with your loading UI
         return Scaffold(
           appBar: AppBar(
-            title: Text("Demo"),
+            title: Text(widget.title),
           ),
           body: Text(
             "Loading..",

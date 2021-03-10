@@ -30,12 +30,12 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController _nameFieldController;
   TextEditingController _emailFieldController;
   TextEditingController _passwordFieldController;
-  TextEditingController _phoneFieldController, _pinFieldController, _addressFieldController, _suburbFieldController;
+  TextEditingController _phoneFieldController, _addressFieldController;
 
 
   // phone number field focus node
   FocusNode phoneFieldFocusNode = FocusNode();
-  String prefixCode = '+64';
+  String prefixCode = '+977';
 
   bool isBusy = false;
 
@@ -52,9 +52,8 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordFieldController = TextEditingController();
     _phoneFieldController = TextEditingController();
 
-    _pinFieldController = TextEditingController();
+
     _addressFieldController = TextEditingController();
-    _suburbFieldController = TextEditingController();
 
 
 
@@ -244,66 +243,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   SizedBox(height: 16.0),
-                  Row(
-                    children: [
-                      Flexible(
-                                          child: TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          autofocus: false,
-                          controller: _suburbFieldController,
-                          onChanged: (String value) {
-                            _registeringUser.suburb = value;
-                          },
-                          decoration: InputDecoration(
-                            hintStyle: TextStyle(color: Colors.black38),
-                            hintText: 'Suburb',
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            icon: Icon(
-                              Icons.local_convenience_store,
-                              color: Colors.black87,
-                            ),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10,),
-                      Flexible(
-                          child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          autofocus: false,
-                          controller: _pinFieldController,
-                          onChanged: (String value) {
-                            _registeringUser.pinCode = value;
-                          },
-                          decoration: InputDecoration(
-                            hintStyle: TextStyle(color: Colors.black38),
-                            hintText: 'Zip/pin',
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            icon: Icon(
-                              Icons.pin_drop,
-                              color: Colors.black87,
-                            ),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16.0),
                   TextFormField(
                     validator: validatorPhoneField,
                     controller: _phoneFieldController,
@@ -430,13 +369,8 @@ class _SignupScreenState extends State<SignupScreen> {
       a = false;
     }
 
-  if(_pinFieldController.text == null) {
-    a =false;
-  }
+
   if(_addressFieldController.text == null) {
-    a =false;
-  }
-  if(_suburbFieldController.text == null) {
     a =false;
   }
 

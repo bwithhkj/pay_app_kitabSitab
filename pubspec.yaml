@@ -38,12 +38,19 @@ dependencies:
   change_app_package_name: ^0.1.2
   image_picker: ^0.6.7+11
   flutter_pdfview: ^1.0.4
+  flutter_launcher_icons: ^0.7.5
   file_picker:
   firebase_storage:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.5
+
+flutter_icons:
+  image_path: "assets/logo.png"
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,6 +68,8 @@ flutter:
     - assets/
     - assets/icon.png
     - assets/tap_to_upload.jpg
+    - assets/logo.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
